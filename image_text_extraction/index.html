@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Text Extraction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #image-preview {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Text Extraction (OCR)</h1>
+    <input type="file" id="image-input" accept="image/*" />
+    <button id="upload-button">Upload and Extract Text</button>
+    <div>
+        <img id="image-preview" src="" alt="Image Preview" />
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadButton = document.getElementById('upload-button');
+        const resultDiv = document.getElementById('result');
+
+        let selectedFile = null;
+
+        // Show image preview
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Upload and process the image
+        uploadButton.addEventListener('click', async () => {
+            if (!selectedFile) {
+                alert('Please select an image first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/extract-text', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to process the image');
+                }
+
+                const data = await response.json();
+                resultDiv.textContent = data.text;
+            } catch (error) {
+                console.error(error);
+                resultDiv.textContent = 'Error extracting text.';
+            }
+        });
+    </script>
+</body>
+</html>
