@@ -31,7 +31,7 @@
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/smart-image-text-extractor.git
+   git clone https://github.com/9Gaurav9/image_text_extraction_OCR.git
    cd smart-image-text-extractor
    ```
 
@@ -75,10 +75,9 @@
 ## Project Structure
 
 ```plaintext
-smart-image-text-extractor/
+image_text_extraction_OCR/
 ├── app.py               # Backend application logic
-├── templates/
-│   └── index.html       # Frontend HTML template
+├─── index.html       # Frontend HTML template
 ├── requirements.txt     # Python dependencies
 └── README.md            # Project documentation
 ```
