@@ -76,8 +76,9 @@
 
 ```plaintext
 image_text_extraction_OCR/
-├── app.py               # Backend application logic
-├─── index.html       # Frontend HTML template
+|---image_text_extraction
+      ├── app.py               # Backend application logic
+      ├─── index.html       # Frontend HTML template
 ├── requirements.txt     # Python dependencies
 └── README.md            # Project documentation
 ```
